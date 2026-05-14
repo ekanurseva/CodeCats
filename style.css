@@ -48,14 +48,14 @@ header p {
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(4, 80px);
+    grid-template-columns: repeat(4, 90px);
     gap: 10px;
     margin-top: 20px;
 }
 
 .cell {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     background: #334155;
     border-radius: 10px;
 
@@ -68,7 +68,7 @@ header p {
 
 .game-info {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 /* RIGHT SIDE */
@@ -177,12 +177,12 @@ code {
     }
 
     .game-board {
-        grid-template-columns: repeat(4, 70px);
+        grid-template-columns: repeat(4, 75px);
     }
 
     .cell {
-        width: 70px;
-        height: 70px;
+        width: 75px;
+        height: 75px;
     }
 }
 
@@ -232,8 +232,8 @@ code {
 /* GAME IMAGE */
 .cell img {
 
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
 
     object-fit: contain;
 
