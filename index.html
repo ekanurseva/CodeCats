@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeCats</title>
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <header>
+        <h1>🐱 CodeCats</h1>
+        <p>Bantu kucing mengambil makanan dengan coding!</p>
+    </header>
+
+    <main class="container">
+
+        <!-- GAME AREA -->
+        <section class="game-section">
+
+            <div id="game-board" class="game-board"></div>
+
+            <div class="game-info">
+                <p id="status">Tulis kode lalu tekan RUN 🚀</p>
+            </div>
+
+        </section>
+
+        <!-- CODE AREA -->
+        <section class="code-section">
+
+            <h2>Code Editor</h2>
+
+            <textarea id="code-input" 
+            placeholder="Contoh: 
+kanan(); 
+kanan(); 
+kanan();"></textarea>
+
+            <div class="button-group">
+                <button id="run-btn">▶ RUN</button>
+                <button id="reset-btn">⟳ RESET</button>
+            </div>
+
+            <div class="command-info">
+                <h3>Command:</h3>
+
+                <ul>
+                    <li><code>kanan();</code></li>
+                    <li><code>kiri();</code></li>
+                    <li><code>atas();</code></li>
+                    <li><code>bawah();</code></li>
+                </ul>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
