@@ -298,18 +298,13 @@ header p {
 
 textarea {
     flex: 1;
-    min-height: 300px;
-
+    min-height: 250px;
     resize: none;
-
     background: #0f172a;
     color: #ffffff;
-
     border: 2px solid #334155;
     border-radius: 10px;
-
     padding: 15px;
-
     font-size: 16px;
     outline: none;
 }
