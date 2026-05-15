@@ -26,7 +26,7 @@
                 class="intro-logo"
                 alt="CodeCats Logo"
             >
-            
+
             <p class="intro-description">
 
                 Gunakan logika coding untuk membantu
@@ -73,7 +73,9 @@ kanan();"></textarea>
                 <button id="run-btn">▶ RUN</button>
                 <button id="reset-btn">⟳ RESET</button>
             </div>
-
+            
+            <button id="next-btn" style="display: none;">⏭ NEXT LEVEL</button>
+            
             <div class="command-info">
                 <h3>Command:</h3>
 
@@ -89,7 +91,9 @@ kanan();"></textarea>
 
     </main>
 
-    <script src="script.js"></script>
+    <script src="script.js">
+        const nextBtn = document.getElementById("next-btn");
+    </script>
 
 </body>
 </html>

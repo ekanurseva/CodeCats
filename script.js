@@ -1,6 +1,8 @@
 const board = document.getElementById("game-board");
 const runBtn = document.getElementById("run-btn");
 const resetBtn = document.getElementById("reset-btn");
+const nextBtn = document.getElementById("next-btn");
+
 const codeInput = document.getElementById("code-input");
 const statusText = document.getElementById("status");
 
@@ -12,6 +14,10 @@ const introScreen =
 
 const container =
     document.querySelector(".container");
+
+/* =========================
+   HIDE GAME FIRST
+========================= */
 
 container.style.display = "none";
 
@@ -130,26 +136,20 @@ const levels = [
 
         walls: [
 
-            // BARIS 1
             { x: 1, y: 0 },
             { x: 2, y: 0 },
             { x: 3, y: 0 },
 
-            // BARIS 2
             { x: 1, y: 1 },
 
-            // BARIS 3
             { x: 3, y: 2 },
             { x: 4, y: 2 },
 
-            // BARIS 4
             { x: 1, y: 3 },
             { x: 2, y: 3 },
 
-            // BARIS 5
             { x: 4, y: 4 },
 
-            // BARIS 6
             { x: 2, y: 5 }
         ]
     },
@@ -296,7 +296,6 @@ const levels = [
             { x: 3, y: 5 }
         ]
     }
-
 ];
 
 /* =========================
@@ -321,6 +320,8 @@ let gameWon = false;
 function loadLevel(levelIndex) {
 
     const level = levels[levelIndex];
+    nextBtn.style.display = "none";
+    runBtn.disabled = false;
 
     ROWS = level.rows;
     COLS = level.cols;
@@ -340,7 +341,7 @@ function loadLevel(levelIndex) {
     gameWon = false;
 
     statusText.innerHTML =
-        `Level ${levelIndex + 1}`;
+        `🎮 Level ${levelIndex + 1} / ${levels.length}`;
 
     statusText.style.color = "white";
 
@@ -369,7 +370,8 @@ function renderBoard() {
             // CAT
             if (x === cat.x && y === cat.y) {
 
-                cell.innerHTML = `<img src="${cat.image}" alt="cat">`;
+                cell.innerHTML =
+                    `<img src="${cat.image}" alt="cat">`;
 
                 if (gameWon) {
                     cell.classList.add("win-cat");
@@ -379,10 +381,11 @@ function renderBoard() {
             // FISH
             else if (x === fish.x && y === fish.y) {
 
-                cell.innerHTML = `<img src="assets/noodle.png">`;;
+                cell.innerHTML =
+                    `<img src="assets/noodle.png" alt="fish">`;
             }
 
-            //walls
+            // WALL
             else if (isWall(x, y)) {
 
                 cell.innerHTML =
@@ -467,41 +470,38 @@ function isWall(x, y) {
 
 function checkWin() {
 
-    if (cat.x === fish.x &&
-        cat.y === fish.y) {
+    if (
+        cat.x === fish.x &&
+        cat.y === fish.y
+    ) {
 
         gameWon = true;
 
-        cat.image = "assets/cat_eat.webp";
+        runBtn.disabled = true;
+
+        cat.image = "assets/cat_eat2.webp";
 
         renderBoard();
 
         createConfetti();
 
-        // LAST LEVEL
-        if (currentLevel === levels.length - 1) {
+        statusText.style.color =
+            "#22c55e";
 
-            statusText.innerHTML =
-                "SELAMAT! Semua level selesai!";
+        // LAST LEVEL
+        if (
+            currentLevel === levels.length - 1
+        ) {
+
+            statusText.innerHTML = "🏆 SELAMAT! Semua level selesai!";
         }
 
-        // NEXT LEVEL
+        // NORMAL LEVEL
         else {
 
-            statusText.innerHTML =
-                `<b>Level ${currentLevel + 1} selesai!</b><br>
-                 Menuju level ${currentLevel + 2}...`;
-
-            setTimeout(() => {
-
-                currentLevel++;
-
-                loadLevel(currentLevel);
-
-            }, 2000);
+            statusText.innerHTML =`🎉 Level ${currentLevel + 1} selesai!`;
+            nextBtn.style.display = "block";
         }
-
-        statusText.style.color = "#22c55e";
 
         return true;
     }
@@ -514,6 +514,10 @@ function checkWin() {
 ========================= */
 
 function createConfetti() {
+
+    document
+        .querySelectorAll(".confetti")
+        .forEach(c => c.remove());
 
     for (let i = 0; i < 20; i++) {
 
@@ -541,6 +545,8 @@ function createConfetti() {
 ========================= */
 
 async function runCode() {
+
+    nextBtn.style.display = "none";
 
     gameWon = false;
 
@@ -624,12 +630,8 @@ function resetGame() {
 }
 
 /* =========================
-   EVENTS
+   INTRO PARTICLES
 ========================= */
-
-runBtn.addEventListener("click", runCode);
-
-resetBtn.addEventListener("click", resetGame);
 
 function createParticles() {
 
@@ -640,11 +642,9 @@ function createParticles() {
 
         particle.classList.add("particle");
 
-        // posisi horizontal random
         particle.style.left =
             Math.random() * 100 + "vw";
 
-        // ukuran random kecil
         const size =
             Math.random() * 4 + 2;
 
@@ -654,34 +654,59 @@ function createParticles() {
         particle.style.height =
             `${size}px`;
 
-        // durasi random
         particle.style.animationDuration =
             (Math.random() * 5 + 5) + "s";
 
-        // delay random
         particle.style.animationDelay =
             Math.random() * 5 + "s";
 
-        // opacity random
         particle.style.opacity =
             Math.random();
 
-        document
-            .getElementById("intro-screen")
-            .appendChild(particle);
+        introScreen.appendChild(particle);
     }
 }
 
 createParticles();
 
 /* =========================
-   START GAME
+   EVENTS
 ========================= */
+
+runBtn.addEventListener(
+    "click",
+    runCode
+);
+
+resetBtn.addEventListener(
+    "click",
+    resetGame
+);
+
+nextBtn.addEventListener("click", () => {
+
+    if (
+        currentLevel <
+        levels.length - 1
+    ) {
+
+        currentLevel++;
+
+        loadLevel(currentLevel);
+
+        codeInput.value = "";
+    }
+});
+
 startBtn.addEventListener("click", () => {
 
     introScreen.style.display = "none";
 
     container.style.display = "flex";
 });
+
+/* =========================
+   START GAME
+========================= */
 
 loadLevel(currentLevel);
