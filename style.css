@@ -413,17 +413,9 @@ code {
     }
 
     .cell {
-
-        width: 60px;
-        height: 60px;
-
-        min-width: 60px;
-    }
-
-    .cell img {
-
-        width: 45px;
-        height: 45px;
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
     }
 
     header h1 {
