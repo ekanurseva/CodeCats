@@ -13,6 +13,22 @@ const levels = [
     // LEVEL 1
     {
         rows: 1,
+        cols: 2,
+
+        cat: {
+            x: 0,
+            y: 0
+        },
+
+        fish: {
+            x: 1,
+            y: 0
+        }
+    },
+
+    // LEVEL 2
+    {
+        rows: 1,
         cols: 3,
 
         cat: {
@@ -26,7 +42,7 @@ const levels = [
         }
     },
 
-    // LEVEL 2
+    // LEVEL 3
     {
         rows: 2,
         cols: 2,
@@ -42,7 +58,7 @@ const levels = [
         }
     },
 
-    // LEVEL 3
+    // LEVEL 4
     {
         rows: 3,
         cols: 3,
@@ -58,7 +74,7 @@ const levels = [
         }
     },
 
-    // LEVEL 4
+    // LEVEL 5
     {
         rows: 5,
         cols: 5,
@@ -86,7 +102,7 @@ const levels = [
         ]
     },
 
-    // LEVEL 5
+    // LEVEL 6
     {
         rows: 6,
         cols: 6,
