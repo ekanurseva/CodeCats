@@ -4,6 +4,17 @@ const resetBtn = document.getElementById("reset-btn");
 const codeInput = document.getElementById("code-input");
 const statusText = document.getElementById("status");
 
+const startBtn =
+    document.getElementById("start-btn");
+
+const introScreen =
+    document.getElementById("intro-screen");
+
+const container =
+    document.querySelector(".container");
+
+container.style.display = "none";
+
 /* =========================
    LEVEL DATA
 ========================= */
@@ -477,8 +488,57 @@ runBtn.addEventListener("click", runCode);
 
 resetBtn.addEventListener("click", resetGame);
 
+function createParticles() {
+
+    for (let i = 0; i < 35; i++) {
+
+        const particle =
+            document.createElement("div");
+
+        particle.classList.add("particle");
+
+        // posisi horizontal random
+        particle.style.left =
+            Math.random() * 100 + "vw";
+
+        // ukuran random kecil
+        const size =
+            Math.random() * 4 + 2;
+
+        particle.style.width =
+            `${size}px`;
+
+        particle.style.height =
+            `${size}px`;
+
+        // durasi random
+        particle.style.animationDuration =
+            (Math.random() * 5 + 5) + "s";
+
+        // delay random
+        particle.style.animationDelay =
+            Math.random() * 5 + "s";
+
+        // opacity random
+        particle.style.opacity =
+            Math.random();
+
+        document
+            .getElementById("intro-screen")
+            .appendChild(particle);
+    }
+}
+
+createParticles();
+
 /* =========================
    START GAME
 ========================= */
+startBtn.addEventListener("click", () => {
+
+    introScreen.style.display = "none";
+
+    container.style.display = "flex";
+});
 
 loadLevel(currentLevel);
