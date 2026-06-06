@@ -3,6 +3,39 @@ const runBtn = document.getElementById("run-btn");
 const resetBtn = document.getElementById("reset-btn");
 const nextBtn = document.getElementById("next-btn");
 
+const themeToggle =
+    document.getElementById("theme-toggle");
+
+const lessonModal =
+    document.getElementById("lesson-modal");
+
+const lessonTitle =
+    document.getElementById("lesson-title");
+
+const lessonDescription =
+    document.getElementById("lesson-description");
+
+const lessonExample =
+    document.getElementById("lesson-example");
+
+const lessonTakeaway =
+    document.getElementById("lesson-takeaway-text");
+
+const closeLessonBtn =
+    document.getElementById("close-lesson-btn");
+
+const lessonCode =
+    document.getElementById("lesson-code");
+
+const lessonExplanation =
+    document.getElementById("lesson-explanation");
+
+const lessonLogic =
+    document.getElementById("lesson-logic");
+
+const lessonConcept =
+    document.getElementById("lesson-concept");
+
 const codeInput = document.getElementById("code-input");
 const statusText = document.getElementById("status");
 
@@ -14,6 +47,19 @@ const introScreen =
 
 const container =
     document.querySelector(".container");
+
+const savedTheme =
+    localStorage.getItem("theme");
+
+if (savedTheme === "light") {
+
+    document.body.classList.add(
+        "light-theme"
+    );
+
+    themeToggle.textContent =
+        "🌙 Dark Mode";
+}
 
 /* =========================
    HIDE GAME FIRST
@@ -45,22 +91,6 @@ const levels = [
 
     // LEVEL 2
     {
-        rows: 1,
-        cols: 3,
-
-        cat: {
-            x: 0,
-            y: 0
-        },
-
-        fish: {
-            x: 2,
-            y: 0
-        }
-    },
-
-    // LEVEL 3
-    {
         rows: 2,
         cols: 2,
 
@@ -75,23 +105,7 @@ const levels = [
         }
     },
 
-    // LEVEL 4
-    {
-        rows: 3,
-        cols: 3,
-
-        cat: {
-            x: 0,
-            y: 2
-        },
-
-        fish: {
-            x: 2,
-            y: 0
-        }
-    },
-
-    // LEVEL 5
+    // LEVEL 3
     {
         rows: 5,
         cols: 5,
@@ -119,7 +133,7 @@ const levels = [
         ]
     },
 
-    // LEVEL 6
+    // LEVEL 4
     {
         rows: 5,
         cols: 5,
@@ -144,73 +158,11 @@ const levels = [
 
             { x: 3, y: 2 },
 
-            { x: 1, y: 3 },
-            { x: 2, y: 3 }
+            { x: 1, y: 3 }
         ]
     },
 
-    // LEVEL 7
-    {
-        rows: 5,
-        cols: 5,
-
-        cat: {
-            x: 0,
-            y: 0
-        },
-
-        fish: {
-            x: 3,
-            y: 4
-        },
-
-        walls: [
-
-            { x: 1, y: 0 },
-            { x: 3, y: 0 },
-
-            { x: 2, y: 4 },
-
-            { x: 1, y: 1 },
-            { x: 3, y: 1 },
-
-            { x: 0, y: 3 },
-            { x: 1, y: 3 },
-            { x: 2, y: 3 }
-        ]
-    },
-
-    // LEVEL 8
-    {
-        rows: 5,
-        cols: 5,
-
-        cat: {
-            x: 4,
-            y: 4
-        },
-
-        fish: {
-            x: 0,
-            y: 0
-        },
-
-        walls: [
-
-            { x: 2, y: 0 },
-            { x: 3, y: 2 },
-
-            { x: 0, y: 1 },
-            { x: 2, y: 1 },
-
-            { x: 3, y: 2 },
-
-            { x: 1, y: 3 },
-            { x: 2, y: 3 }
-        ]
-    },
-
-    // LEVEL 9
+    // LEVEL 5
     {
         rows: 5,
         cols: 5,
@@ -238,39 +190,146 @@ const levels = [
             { x: 2, y: 3 },
             { x: 3, y: 4 }
         ]
+    }
+    
+];
+
+/* =========================
+   LESSON MODAL
+========================= */
+
+const lessons = [
+
+    {
+        title: "Sequence (Urutan Instruksi)",
+
+        code:
+`kanan();`,
+
+        explanation:
+`Perintah kanan() membuat kucing bergerak satu langkah ke kanan.`,
+
+        logic:
+`START
+↓
+kanan()
+↓
+Kucing bergerak ke kanan
+↓
+Mencapai makanan
+↓
+FINISH`,
+
+        concept:
+`Komputer menjalankan instruksi secara berurutan dari atas ke bawah. Jika urutannya benar maka tujuan akan tercapai.`
     },
 
-    // LEVEL 10
     {
-        rows: 5,
-        cols: 5,
+        title: "Algoritma",
 
-        cat: {
-            x: 0,
-            y: 4
-        },
+        code:
+`atas();
+kanan(); atau
+kanan();
+atas();`,
 
-        fish: {
-            x: 2,
-            y: 3
-        },
+        explanation:
+`Kucing harus bergerak ke atas terlebih dahulu, kemudian ke kanan atau ke kanan lalu ke atas untuk mencapai makanan.`,
 
-        walls: [
 
-            { x: 0, y: 0 },
+        logic:
+`START
+↓
+atas() / kanan()
+↓
+kanan() / atas()
+↓
+Makanan ditemukan
+↓
+FINISH`,
 
-            { x: 3, y: 1 },
+        concept:
+`Algoritma adalah langkah-langkah yang disusun untuk menyelesaikan suatu masalah.`
+    },
 
-            { x: 1, y: 3 },
-            { x: 1, y: 2 },
+    {
+        title: "Problem Solving",
 
-            { x: 1, y: 4 },
+        code:
+`Cari jalur alternatif
+karena terdapat rintangan.`,
 
-            { x: 2, y: 2 },
-            { x: 2, y: 4 }
+        explanation:
+`Jalur menuju makanan ada yang terhalang tembok sehingga perlu mencari jalan lain.`,
 
-        ]
+        logic:
+`START
+↓
+Analisis rintangan
+↓
+Cari jalur alternatif
+↓
+Jalankan langkah
+↓
+FINISH`,
+
+        concept:
+`Programmer harus mampu menemukan solusi ketika jalur yang diinginkan tidak dapat digunakan.`
+    },
+
+    {
+        title: "Debugging dan Analisis",
+
+        code:
+`Periksa posisi
+kucing, makanan,
+dan rintangan.`,
+
+        explanation:
+`Sebelum menulis kode, analisis terlebih dahulu kondisi yang ada.`,
+
+        logic:
+`START
+↓
+Analisis Map
+↓
+Susun Langkah
+↓
+Uji Solusi
+↓
+FINISH`,
+
+        concept:
+`Debugging adalah proses mencari dan memperbaiki kesalahan pada solusi yang dibuat.`
+    },
+
+    {
+        title: "Computational Thinking",
+
+        code:
+`Masalah Besar
+↓
+Pecah Menjadi
+Langkah Kecil`,
+
+        explanation:
+`Masalah yang kompleks dapat dipecah menjadi langkah-langkah sederhana yang mudah diselesaikan.`,
+
+        logic:
+`START
+↓
+Pecah Masalah
+↓
+Susun Langkah
+↓
+Eksekusi
+↓
+FINISH`,
+
+        concept:
+`Computational Thinking adalah cara berpikir yang digunakan programmer untuk menyelesaikan masalah secara sistematis.`
     }
+
 ];
 
 /* =========================
@@ -318,7 +377,7 @@ function loadLevel(levelIndex) {
     statusText.innerHTML =
         `🎮 Level ${levelIndex + 1} / ${levels.length}`;
 
-    statusText.style.color = "white";
+    statusText.style.color = "var(--text-secondary)";
 
     board.style.gridTemplateColumns =
         `repeat(${COLS}, 90px)`;
@@ -454,7 +513,8 @@ function checkWin() {
 
         runBtn.disabled = true;
 
-        cat.image = "assets/cat_eat2.webp";
+        cat.image =
+            "assets/cat_happy.webp";
 
         renderBoard();
 
@@ -463,27 +523,13 @@ function checkWin() {
         statusText.style.color =
             "#22c55e";
 
-        // LAST LEVEL
-        if (
-            currentLevel === levels.length - 1
-        ) {
-
-            statusText.innerHTML = "🏆 SELAMAT! Semua level selesai!";
-        }
-
-        // NORMAL LEVEL
-        else {
-
-            statusText.innerHTML =`🎉 Level ${currentLevel + 1} selesai!`;
-            nextBtn.style.display = "block";
-        }
+        showLesson(currentLevel);
 
         return true;
     }
 
     return false;
 }
-
 /* =========================
    CONFETTI
 ========================= */
@@ -513,6 +559,30 @@ function createConfetti() {
             confetti.remove();
         }, 4000);
     }
+}
+
+function showLesson(levelIndex) {
+
+    const lesson =
+        lessons[levelIndex];
+
+    lessonTitle.textContent =
+        lesson.title;
+
+    lessonCode.textContent =
+        lesson.code;
+
+    lessonExplanation.textContent =
+        lesson.explanation;
+
+    lessonLogic.textContent =
+        lesson.logic;
+
+    lessonConcept.textContent =
+        lesson.concept;
+
+    lessonModal.style.display =
+        "flex";
 }
 
 /* =========================
@@ -678,6 +748,53 @@ startBtn.addEventListener("click", () => {
     introScreen.style.display = "none";
 
     container.style.display = "flex";
+});
+
+closeLessonBtn.addEventListener("click", () => {
+
+    lessonModal.style.display =
+        "none";
+
+    if (
+        currentLevel ===
+        levels.length - 1
+    ) {
+
+        statusText.innerHTML =
+            "🏆 SELAMAT! Semua level selesai!";
+
+        return;
+    }
+
+    statusText.innerHTML =
+        `🎉 Level ${currentLevel + 1} selesai!`;
+
+    nextBtn.style.display =
+        "block";
+});
+
+themeToggle.addEventListener("click", () => {
+
+    document.body.classList.toggle(
+        "light-theme"
+    );
+
+    const isLight =
+        document.body.classList.contains(
+            "light-theme"
+        );
+
+    themeToggle.textContent =
+        isLight
+            ? "🌙 Dark Mode"
+            : "🌞 Light Mode";
+
+    localStorage.setItem(
+        "theme",
+        isLight
+            ? "dark"
+            : "light"
+    );
 });
 
 /* =========================

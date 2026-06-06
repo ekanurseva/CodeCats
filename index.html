@@ -10,8 +10,17 @@
 <body>
 
     <header>
-        <img src="assets/codecats.png" style="width: 175px;" alt="CodeCats">
-        <p>Bantu kucing mengambil makanan dengan coding!</p>
+         <div class="header-actions">
+            <button id="theme-toggle">
+                🌞 Light Mode
+            </button>
+        </div>
+
+        <img src="assets/codecats.png" class="header-logo" alt="CodeCats">
+
+        <p>
+            Belajar algoritma dan dasar pemrograman melalui petualangan kucing lucu.
+        </p>
     </header>
 
     <!-- INTRO SCREEN -->
@@ -28,17 +37,11 @@
             >
 
             <p class="intro-description">
-
-                Gunakan logika coding untuk membantu
-                kucing lucu menemukan makanannya
-                dan selesaikan puzzle yang semakin sulit!
-
+                Gunakan logika coding untuk membantu kucing lucu menemukan makanannya dan selesaikan puzzle yang semakin sulit!s
             </p>
 
             <button id="start-btn">
-
                 ▶ START GAME
-
             </button>
 
         </div>
@@ -49,6 +52,54 @@
 
         <!-- GAME AREA -->
         <section class="game-section">
+
+            <div id="lesson-modal" class="lesson-modal">
+
+                <div class="lesson-content">
+
+                    <h2 id="lesson-title"></h2>
+
+                    <div class="lesson-section">
+
+                        <h3>Contoh Kode</h3>
+
+                        <pre id="lesson-code"></pre>
+
+                    </div>
+
+                    <div class="lesson-section">
+
+                        <h3>Penjelasan</h3>
+
+                        <p id="lesson-explanation"></p>
+
+                    </div>
+
+                    <div class="lesson-section">
+
+                        <h3>Logika Program</h3>
+
+                        <pre id="lesson-logic"></pre>
+
+                    </div>
+
+                    <div class="lesson-section">
+
+                        <h3>Konsep Pemrograman</h3>
+
+                        <p id="lesson-concept"></p>
+
+                    </div>
+
+                    <button id="close-lesson-btn">
+
+                        Saya Mengerti
+
+                    </button>
+
+                </div>
+
+            </div>
 
             <div class="game-info">
                 <p id="status"></p>
